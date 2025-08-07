@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTACT</title>
+</head>
+<body>
+    <h2>CONTACT US</h2>
+    <form id="contactform">
+        <input type="text" id="name" placeholder="Your Name" required><br>
+        <textarea id="message" placeholder="Your Message" required></textarea><br><br>
+        <button type="submit">Send</button>
+    </form>
+    <h3>Messages:</h3>
+<div id="messageList"></div>
+
+    <div id="response"></div>
+
+   <script>
+  document.getElementById("contactform").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const message = document.getElementById("text").value;
+
+    fetch("/https://contact-ja1i.onrender.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name, message })
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("response").innerText = data.status;
+    })
+    .catch(err => {
+      document.getElementById("response").innerText = "Error sending message.";
+      console.error(err);
+    });
+  });
+</script>
+</body>
+</html>

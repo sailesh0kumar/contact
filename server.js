@@ -10,13 +10,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 const messages = [];
 
 app.post("/message", (req, res) => {
-    const { name, message } = req.body;
-    if (!name || !message) {
-        return res.status(400).json({ status: "Missing name or message." });
-    }
-    messages.push({ name, message });
-    res.json({ status: "Message received!" });
+  const { name, message } = req.body;
+
+  if (!name || !message) {
+    return res.status(400).json({ status: "Missing name or message." });
+  }
+
+  messages.push({ name, message });
+  res.json({ status: "Message received!" });
 });
+
 
 app.get("/message", (req, res) => {
     res.json(messages);
